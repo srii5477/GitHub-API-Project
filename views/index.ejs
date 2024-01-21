@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHubAPI Demo</title>
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" /> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.1.0/mdb.min.css" rel="stylesheet"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <link href="style.css" rel="stylesheet" />
+
+</head>
+<body>
+    <div class="header">
+        <div class="txt"> <h1> Your Guide to GitHub </h1> </div>
+        <div class="icon"> <a href="#" class="fa fa-github"></a> </div>
+    </div>
+    <div class="body">
+        <!-- search for a user -->
+        <h2> Read from a user's profile: </h2>
+        <form action="/" method="POST">
+        <div class="input-group" style="margin-bottom: 5%;">
+                
+                <input type="text" name="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <button type="submit" class="btn btn-outline-light" data-mdb-ripple-init>search</button>  
+        </div>
+        </form>
+        <div class="flex">
+        <% if(locals.user) { %>
+            <h2> Public repos: 
+                <% if(locals.repos) { %>
+                    <ul>
+                        <% for(let i=0; i<repos.length; i++) { %>
+                            <li> <%= repos[i].name %> </li>
+                        <% } %>
+                    </ul>
+                <% } %>
+            </h2>
+            <h2> Followers: <%= user.followers %> </h2>
+            <h2> Following: <%= user.following %> </h2>
+            <h2> Starred repos:  
+                <% if(locals.starred) { %>
+                <ul>
+                    <% for(let i=0; i<starred.length; i++) { %>
+                        <li> <%= starred[i].name %> </li>
+                    <% } %>
+                </ul>
+                <% } %>
+            </h2>
+        <% } %>
+        </div>
+        <h2 style="color: rgb(225, 151, 246); font-weight: bolder; width: 120%; "> Perform CRUD Operations in your repositories and their contents ~</h2>
+        <div class="input">
+
+            <form method="POST">
+            <input type="text" name="token" placeholder="Enter your Personal Access Token" style="width: 40%; height: 40px;"/>
+            <input type="text" name="username" placeholder="Enter your username if you want to create/update a repo" style="width: 50%; height: 40px; margin-top: 5%;"/>
+            <input type="text" name="repo" placeholder="Search for a repo to update/delete/read or enter a new repo name. " style="width: 70%; margin-top: 5%; height: 40px;"/>
+            <input type="text" name="desc" placeholder="Enter a description for the repo if you are creating/update it." style="width: 70%; margin-top: 5%; height: 40px;"/>
+            <!-- <input type="text" name="file" placeholder="Enter the name of the file within your repo you want to create/update." style="width: 70%; margin-top: 5%; height: 40px;"/> 
+            <textarea name="content" placeholder="Enter the content of the file if you are creating/updating it." rows="20" cols="45" style="margin-top: 5%;"></textarea> -->
+            <input type="text" name="visibility" placeholder="Do you want your repo to be public or private?" style="width: 70%; margin-top: 5%; height: 40px;"/>
+            <input type="text" name="path" placeholder="Enter the path of the file you wish to read within your repo." style="width: 70%; margin-top: 5%; height: 40px;"/>
+            <div class="crud" style="margin-top: 5%;">
+                <button type="submit" formaction="/create" class="btn btn-outline-light" data-mdb-ripple-init>Create</button>
+                <button type="submit" formaction="/update" class="btn btn-outline-light" data-mdb-ripple-init>Update</button>
+                <button type="submit" formaction="/read" class="btn btn-outline-light" data-mdb-ripple-init>Read</button>
+            </div>
+            </form>
+        </div> 
+
+        <div class="info">
+            <% if(locals.new_repo) { %>
+                <h2><%= new_repo.name %> succesfully created! </h2>
+            <% } %>
+            <% if(locals.updated_repo) { %>
+                <h2><%= updated_repo.name %> succesfully updated! </h2>
+            <% } %>
+            <% if(locals.read_repo) { %>
+                <h2><%= read_repo.name %> succesfully read! </h2>
+                <h2> <b> <u> Contents: </u> </b> </h2>
+                <h2 style="font-size: 23px; color: rgb(241, 216, 255);"> <%= content %> </h2>
+            <% } %>
+        </div>
+    </div>
+    
+</body>
+</html>
