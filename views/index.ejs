@@ -88,16 +88,19 @@
 
         <div class="curious">
             <h2 style="color: rgb(225, 151, 246); font-weight: bolder; width: 130%;">Explore the ocean of code repositories in GitHub, satiate your curiosity.</h2>
-            <form method="POST" action="/search">
-                <input type="password" name="token" placeholder="Enter your Personal Access Token" style="width: 50%; height: 40px;"/>
-                <input type="text" name="keyword" placeholder="Enter what you are looking for." />
-                <button type="submit" class="btn btn-outline-light" data-mdb-ripple-init>Go</button>
+            <form method="POST" action="/search" >
+                <div class="flex">
+                <input type="password" name="token" placeholder="Enter your Personal Access Token" style="width: 70%; height: 30px;"/>
+                <input type="text" name="keyword" placeholder="Enter what you are looking for." /> </div>
+                <button type="submit" style="width: 60%; margin-top: 5%;" class="btn btn-outline-light" data-mdb-ripple-init>Go</button>
             </form>
             <div class="res" style="color: white; margin-top: 5%;">
-                <% for(let i = 0; i < info.length; i++) { %>
-                    <h3 style="font-size: 24px;"> <%= i %>. <b><%=info[i].full_name%></b> </h3> 
-                    <h4><a style="color: rgb(237, 147, 237);" href="<%=info[i].html_url%>"> Link </a></h4>
-                    <h5><%=info[i].description.substring(0, 100)%></h5>
+                <% if(locals.info)  { %>
+                    <% for(let i = 0; i < info.length; i++) { %>
+                        <h3 style="font-size: 24px;"> <%= i %>. <b><%=info[i].full_name%></b> </h3> 
+                        <h4><a style="color: rgb(237, 147, 237);" href="<%=info[i].html_url%>"> Link </a></h4>
+                        <h5><%=info[i].description.substring(0, 100)%></h5>
+                    <% } %>
                 <% } %>
             </div>
         </div>

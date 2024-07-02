@@ -67,3 +67,11 @@ h2 {
 form {
     width: 100%;
 }
+
+.flex {
+    display: flex;
+}
+
+.curious {
+    margin-top: 10%;
+}
