@@ -61,11 +61,11 @@ app.post("/", async (req, res) => {
 })
 
 // replace this with your own token
-const PAID = "";
+// const PAID = "";
 
-const config = {
-    headers: { Authorization: `Bearer ${PAID}` },
-};
+// const config = {
+//     headers: { Authorization: `Bearer ${PAID}` },
+// };
 
 
 app.post("/create", async (req, res) => {
@@ -75,7 +75,7 @@ app.post("/create", async (req, res) => {
         description : req.body.desc,
         visibility : req.body.visibility || "public",
       }
-        const response = await axios.post("https://api.github.com/user/repos", body, config);
+        const response = await axios.post("https://api.github.com/user/repos", body, { headers: { Authorization: `Bearer ${req.body.token}` }, });
         const result = response.data;
         console.log(result);
         res.render("index.ejs", { new_repo: result });
@@ -95,7 +95,7 @@ app.post("/update", async (req, res) => {
       description : req.body.desc,
       visibility : req.body.visibility || "public",
     }
-    const response = await axios.patch("https://api.github.com/repos/" + req.body.username + "/" + req.body.repo, body, config);
+    const response = await axios.patch("https://api.github.com/repos/" + req.body.username + "/" + req.body.repo, body, { headers: { Authorization: `Bearer ${req.body.token}` }, });
     const result = response.data;
     console.log(result);
     res.render("index.ejs", { updated_repo: result });
@@ -110,7 +110,7 @@ app.post("/update", async (req, res) => {
 app.post("/read", async (req, res) => {
   try {
     // config.headers.Accept = "application/vnd.github.v3.raw";
-    const response = await axios.get("https://api.github.com/repos/" + req.body.username + "/" + req.body.repo + "/contents/" + req.body.path, config);
+    const response = await axios.get("https://api.github.com/repos/" + req.body.username + "/" + req.body.repo + "/contents/" + req.body.path, { headers: { Authorization: `Bearer ${req.body.token}` }, });
     const result = response.data;
     // console.log(result);
     let content = result.content;
@@ -125,6 +125,17 @@ app.post("/read", async (req, res) => {
   }
 })
 
+app.post("/search", async (req, res) => {
+   try {
+      const response = await axios.get("https://api.github.com/search/repositories", { params: { q: req.body.keyword, sort: 'stars', order: 'desc', per_page: 10 }},  { headers: { Authorization: `Bearer ${req.body.token}`, accept: 'application/vnd.github+json' },});
+      const result = response.data;
+      console.log(result);
+      res.render("index.ejs", {info: result.items});
+
+   } catch(err) {
+      console.log(err);
+   }
+})
 
 app.listen(port, () => {
     console.log(`Server listening on port ${port}.`);

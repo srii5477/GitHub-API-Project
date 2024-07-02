@@ -1,6 +1,9 @@
 body {
     background-image: radial-gradient(circle, rgb(210, 94, 246), rgb(106, 7, 159), rgb(48, 2, 61));
     font-family: 'Poppins', sans-serif;
+    margin-left: 20%;
+    margin-right: -5%;
+    color:rgb(84, 7, 105) !important;
 }
 
 .header h1 {
@@ -26,13 +29,13 @@ body {
 .fa { 
     padding: 5px; 
     font-size: 90px; 
-    width: 50%; 
+    width: 90%; 
     text-decoration: none; 
 } 
 
 .body {
     margin-top: 10%;
-    width: 70%;
+    width: 50%;
     margin-left: 5%;
 }
 
@@ -59,4 +62,8 @@ h2 {
     height: 20%;
     font-size: 20px;
     cursor: pointer;
+}
+
+form {
+    width: 100%;
 }
