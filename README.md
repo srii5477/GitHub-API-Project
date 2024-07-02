@@ -1,6 +1,6 @@
-##GitHub Repository Viewer##
+## GitHub Repository Viewer ##
 
-###A simple web application that leverages the GitHub public API to allow users to perform CRU operations on their repositories and search across repositories on GitHub. Delete operations are risky and so we have not added that functionality to the website.###
+### A simple web application that leverages the GitHub public API to allow users to perform CRU operations on their repositories and search across repositories on GitHub. Delete operations are risky and so we have not added that functionality to the website. ###
 
 ## Features ##
 
